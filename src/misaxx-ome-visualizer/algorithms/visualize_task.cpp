@@ -36,7 +36,7 @@ void visualize_task::work() {
         for(size_t i = 0; i < keys.size(); ++i) {
             // Generate a color for this label
             double hue = i * 1.0 / keys.size();
-            hsv_in.at<cv::Vec3b>()[0] = static_cast<uchar>(hue * 127);
+            hsv_in.at<cv::Vec3b>()[0] = static_cast<uchar>(hue * 180);
             cv::cvtColor(hsv_in, bgr_out, cv::COLOR_HSV2BGR);
 
             // Set into recoloring map

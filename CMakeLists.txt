@@ -10,7 +10,7 @@ add_library(misaxx-ome-visualizer include/misaxx-ome-visualizer/module_interface
 include/misaxx-ome-visualizer/module.h
 src/misaxx-ome-visualizer/module_interface.cpp
 src/misaxx-ome-visualizer/module.cpp
-        src/misaxx-ome-visualizer/algorithms/visualize_task.cpp src/misaxx-ome-visualizer/algorithms/visualize_task.h)
+        src/misaxx-ome-visualizer/algorithms/visualize_task.cpp src/misaxx-ome-visualizer/algorithms/visualize_task.h src/misaxx-ome-visualizer/attachments/colormap.cpp include/misaxx-ome-visualizer/attachments/colormap.h src/misaxx-ome-visualizer/algorithms/find_colormap_task.cpp src/misaxx-ome-visualizer/algorithms/find_colormap_task.h)
 
 # Add additional link targets if necessary
 target_link_libraries(misaxx-ome-visualizer misaxx::misaxx-core misaxx::misaxx-imaging-ome opencv-toolbox::opencv-toolbox)

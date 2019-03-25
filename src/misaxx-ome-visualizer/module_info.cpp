@@ -5,9 +5,9 @@
 
 misaxx::misa_module_info misaxx_ome_visualizer::module_info() {
     misaxx::misa_mutable_module_info info;
-    info.set_id("@PROJECT_NAME@");
-    info.set_version("@PROJECT_VERSION@");
-    info.set_name("@PROJECT_DESCRIPTION@");
+    info.set_id("misaxx-ome-visualizer");
+    info.set_version("1.0.0");
+    info.set_name("OME TIFF Visualization");
     info.set_description("Visualized OME TIFF images");
     info.add_author("Ruman Gerst");
     info.set_license("BSD-2-Clause");

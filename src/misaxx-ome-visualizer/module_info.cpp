@@ -4,7 +4,7 @@
 #include <misaxx/ome/module_info.h>
 
 misaxx::misa_module_info misaxx_ome_visualizer::module_info() {
-    misaxx::misa_mutable_module_info info;
+    misaxx::misa_module_info info;
     info.set_id("misaxx-ome-visualizer");
     info.set_version("1.0.0");
     info.set_name("OME TIFF Visualization");

@@ -10,15 +10,9 @@
  * See the LICENSE file provided with this code for the full license.
  */
 
-#include <misaxx/core/misa_module_interface.h>
-#include <misaxx/ome/accessors/misa_ome_tiff.h>
+#pragma once
+#include <misaxx/core/module_info.h>
 
 namespace misaxx_ome_visualizer {
-    struct module_interface : public misaxx::misa_module_interface {
-
-        misaxx::ome::misa_ome_tiff m_input;
-        misaxx::ome::misa_ome_tiff m_output;
-
-        void setup() override;
-    };
+    extern misaxx::misa_module_info module_info();
 }

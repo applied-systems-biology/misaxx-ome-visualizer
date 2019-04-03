@@ -1,4 +1,16 @@
-cmake_minimum_required(VERSION 3.11) 
+# /**
+# * Copyright by Ruman Gerst
+# * Research Group Applied Systems Biology - Head: Prof. Dr. Marc Thilo Figge
+# * https://www.leibniz-hki.de/en/applied-systems-biology.html
+# * HKI-Center for Systems Biology of Infection
+# * Leibniz Institute for Natural Product Research and Infection Biology - Hans Knöll Insitute (HKI)
+# * Adolf-Reichwein-Straße 23, 07745 Jena, Germany
+# *
+# * This code is licensed under BSD 2-Clause
+# * See the LICENSE file provided with this code for the full license.
+# */
+
+cmake_minimum_required(VERSION 3.11)
 project(misaxx-ome-visualizer VERSION 1.0.0 DESCRIPTION "OME TIFF Visualization")
 
 find_package(misaxx-core REQUIRED)
@@ -7,10 +19,17 @@ find_package(opencv-toolbox REQUIRED)
 # Add additional packages if necessary
 
 add_library(misaxx-ome-visualizer include/misaxx-ome-visualizer/module_interface.h
-include/misaxx-ome-visualizer/module.h
-src/misaxx-ome-visualizer/module_interface.cpp
-src/misaxx-ome-visualizer/module.cpp
-        src/misaxx-ome-visualizer/algorithms/visualize_task.cpp src/misaxx-ome-visualizer/algorithms/visualize_task.h src/misaxx-ome-visualizer/attachments/colormap.cpp include/misaxx-ome-visualizer/attachments/colormap.h src/misaxx-ome-visualizer/algorithms/find_colormap_task.cpp src/misaxx-ome-visualizer/algorithms/find_colormap_task.h)
+        include/misaxx-ome-visualizer/module.h
+        src/misaxx-ome-visualizer/module_interface.cpp
+        src/misaxx-ome-visualizer/module.cpp
+        src/misaxx-ome-visualizer/algorithms/visualize_task.cpp
+        src/misaxx-ome-visualizer/algorithms/visualize_task.h
+        src/misaxx-ome-visualizer/attachments/colormap.cpp
+        include/misaxx-ome-visualizer/attachments/colormap.h
+        src/misaxx-ome-visualizer/algorithms/find_colormap_task.cpp
+        src/misaxx-ome-visualizer/algorithms/find_colormap_task.h
+        include/misaxx-ome-visualizer/module_info.h
+        src/misaxx-ome-visualizer/module_info.cpp)
 
 # Add additional link targets if necessary
 target_link_libraries(misaxx-ome-visualizer misaxx::misaxx-core misaxx::misaxx-imaging-ome opencv-toolbox::opencv-toolbox)

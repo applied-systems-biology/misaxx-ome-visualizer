@@ -27,6 +27,7 @@ void misaxx_ome_visualizer::find_colormap_task::work() {
     misaxx::ome::misa_ome_tiff images = get_module_as<module_interface>()->m_input;
     std::unordered_set<int> label_colors;
     for(size_t i = 0; i < images.size(); ++i) {
+        std::cout << "Analyzing color map (" << i << "/" << images.size() << "\n";
         auto input_access = images.at(i).access_readonly();
         if(input_access.get().type() == CV_32S) {
             for(int y = 0; y < input_access.get().rows; ++y) {

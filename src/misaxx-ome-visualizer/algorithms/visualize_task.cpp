@@ -12,11 +12,6 @@
 
 #include "visualize_task.h"
 #include <opencv2/opencv.hpp>
-#include <cv-toolbox/ReadableBMatTypes.h>
-#include <cv-toolbox/toolbox/toolbox_semantic_convert.h>
-#include <cv-toolbox/toolbox/toolbox_statistics.h>
-#include <cv-toolbox/toolbox/toolbox_recoloring.h>
-#include <cv-toolbox/recoloring_map.h>
 #include <misaxx-ome-visualizer/attachments/colormap.h>
 #include <misaxx-ome-visualizer/module_interface.h>
 
@@ -48,13 +43,7 @@ void visualize_task::work() {
 
         output_access.set(std::move(result));
     }
-    else if(input_access.get().type() == CV_8U) {
-        cv::Mat result { };
-        cv::cvtColor(input_access.get(), result, cv::COLOR_GRAY2BGR);
-        output_access.set(std::move(result));
-    }
     else if(input_access.get().channels() == 1) {
-        auto as_grayscale = cv::toolbox::semantic_convert::to_grayscale8u(input_access.get());
         cv::Mat result { };
         cv::cvtColor(input_access.get(), result, cv::COLOR_GRAY2BGR);
         output_access.set(std::move(result));

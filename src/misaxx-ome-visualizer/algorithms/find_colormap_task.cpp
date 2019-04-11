@@ -12,9 +12,7 @@
 
 #include <misaxx-ome-visualizer/attachments/colormap.h>
 #include <misaxx/ome/accessors/misa_ome_tiff.h>
-#include <cv-toolbox/toolbox/toolbox_statistics.h>
 #include <misaxx-ome-visualizer/module_interface.h>
-#include <cv-toolbox/histogram.h>
 #include "find_colormap_task.h"
 
 using namespace misaxx;

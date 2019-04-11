@@ -33,36 +33,18 @@ void visualize_task::work() {
     auto output_access = m_output.access_write();
 
     if(input_access.get().type() == CV_32S) {
-//        auto histogram = cv::toolbox::statistics::get_histogram<int>(input_access.get());
-//        const auto keys = histogram.get_keys();
-//        cv::recoloring_hashmap<int, cv::Vec3b> recoloring_map;
-//
-//        cv::Mat hsv_in(1,1,CV_8UC3);
-//        cv::Mat bgr_out(1,1,CV_8UC3);
-//
-//        hsv_in.at<cv::Vec3b>()[1] = 255;
-//        hsv_in.at<cv::Vec3b>()[2] = 255;
-//
-//        for(size_t i = 0; i < keys.size(); ++i) {
-//            // Generate a color for this label
-//            double hue = i * 1.0 / keys.size();
-//            hsv_in.at<cv::Vec3b>()[0] = static_cast<uchar>(hue * 180);
-//            cv::cvtColor(hsv_in, bgr_out, cv::COLOR_HSV2BGR);
-//
-//            // Set into recoloring map
-//            recoloring_map.set_recolor(keys.at(i), bgr_out.at<cv::Vec3b>(0));
-//        }
-//
-//        recoloring_map.set_recolor(0, cv::Vec3b(0,0,0));
-
         const auto attachment = get_module_as<module_interface>()->m_input.get_attachment<colormap>();
 
         // Apply recoloring
-        cv::Mat result { input_access.get().rows, input_access.get().cols, CV_8UC3, cv::Scalar::all(0) };
-        cv::toolbox::recolor(input_access.get(), result, attachment.data);
+        cv::Mat3b result { input_access.get().size(), cv::Vec3b(0,0,0) };
 
-//        cv::imshow("test", result);
-//        cv::waitKey(0);
+        for(int y = 0; y < result.rows; ++y) {
+            const int *row_src = input_access.get().ptr<int>(y);
+            cv::Vec3b *row_result = result[y];
+            for(int x = 0; x < result.cols; ++x) {
+                row_result[x] = attachment.data.at(row_src[x]);
+            }
+        }
 
         output_access.set(std::move(result));
     }

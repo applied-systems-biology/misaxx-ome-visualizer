@@ -27,17 +27,21 @@ void misaxx_ome_visualizer::find_colormap_task::create_parameters(misaxx::misa_p
 void misaxx_ome_visualizer::find_colormap_task::work() {
 
     misaxx::ome::misa_ome_tiff images = get_module_as<module_interface>()->m_input;
-    cv::hashmap_histogram<int> histogram;
+    std::unordered_set<int> label_colors;
     for(size_t i = 0; i < images.size(); ++i) {
         auto input_access = images.at(i).access_readonly();
         if(input_access.get().type() == CV_32S) {
-            cv::toolbox::statistics::update_histogram(input_access.get(), histogram);
+            for(int y = 0; y < input_access.get().rows; ++y) {
+                const int *row = input_access.get().ptr<int>(y);
+                for(int x = 0; x < input_access.get().cols; ++x) {
+                    label_colors.insert(row[x]);
+                }
+            }
         }
     }
 
-    if(!histogram.empty()) {
-        const auto keys = histogram.get_keys();
-        cv::recoloring_hashmap<int, cv::Vec3b> recoloring_map;
+    if(!label_colors.empty()) {
+        colormap attachment;
 
         cv::Mat hsv_in(1,1,CV_8UC3);
         cv::Mat bgr_out(1,1,CV_8UC3);
@@ -45,20 +49,18 @@ void misaxx_ome_visualizer::find_colormap_task::work() {
         hsv_in.at<cv::Vec3b>()[1] = 255;
         hsv_in.at<cv::Vec3b>()[2] = 255;
 
-        for(size_t i = 0; i < keys.size(); ++i) {
+        for(int color : label_colors) {
             // Generate a color for this label
-            double hue = i * 1.0 / keys.size();
+            double hue = (std::abs(color) % 256) / 255.0;
             hsv_in.at<cv::Vec3b>()[0] = static_cast<uchar>(hue * 180);
             cv::cvtColor(hsv_in, bgr_out, cv::COLOR_HSV2BGR);
 
             // Set into recoloring map
-            recoloring_map.set_recolor(keys.at(i), bgr_out.at<cv::Vec3b>(0));
+            attachment.data[color] = bgr_out.at<cv::Vec3b>(0);
         }
 
-        recoloring_map.set_recolor(0, cv::Vec3b(0,0,0));
-
-        colormap attachment;
-        attachment.data = std::move(recoloring_map);
+        // Color background black
+        attachment.data[0] = cv::Vec3b(0,0,0);
         images.attach(std::move(attachment));
     }
 }

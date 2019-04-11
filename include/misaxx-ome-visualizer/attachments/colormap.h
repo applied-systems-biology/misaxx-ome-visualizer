@@ -13,12 +13,12 @@
 #pragma once
 
 #include <misaxx/core/attachments/misa_locatable.h>
-#include <cv-toolbox/recoloring_map.h>
 #include <opencv2/opencv.hpp>
+#include <unordered_map>
 
 namespace misaxx_ome_visualizer {
     struct colormap : public misaxx::misa_locatable {
-        cv::recoloring_hashmap<int, cv::Vec3b> data;
+        std::unordered_map<int, cv::Vec3b> data;
 
         void from_json(const nlohmann::json &t_json) override;
 

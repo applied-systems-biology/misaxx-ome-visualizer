@@ -15,7 +15,6 @@ project(misaxx-ome-visualizer VERSION 1.0.0 DESCRIPTION "OME TIFF Visualization"
 
 find_package(misaxx-core REQUIRED)
 find_package(misaxx-imaging-ome REQUIRED)
-find_package(opencv-toolbox REQUIRED)
 # Add additional packages if necessary
 
 add_library(misaxx-ome-visualizer include/misaxx-ome-visualizer/module_interface.h
@@ -32,7 +31,7 @@ add_library(misaxx-ome-visualizer include/misaxx-ome-visualizer/module_interface
         src/misaxx-ome-visualizer/module_info.cpp)
 
 # Add additional link targets if necessary
-target_link_libraries(misaxx-ome-visualizer misaxx::misaxx-core misaxx::misaxx-imaging-ome opencv-toolbox::opencv-toolbox)
+target_link_libraries(misaxx-ome-visualizer misaxx::misaxx-core misaxx::misaxx-imaging-ome)
 
 # MISA++ helper script (automatically included by Core Library)
 set(MISAXX_LIBRARY misaxx-ome-visualizer)

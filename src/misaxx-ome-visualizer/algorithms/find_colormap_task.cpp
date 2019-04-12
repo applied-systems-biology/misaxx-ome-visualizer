@@ -19,11 +19,17 @@ using namespace misaxx;
 using namespace misaxx_ome_visualizer;
 
 void misaxx_ome_visualizer::find_colormap_task::create_parameters(misaxx::misa_parameter_builder &t_parameters) {
-
+    m_filter_labels = t_parameters.create_algorithm_parameter<bool>("filter-labels", false)
+            .document_title("Filter labels").document_description("If enabled, labels not included within the list of filtered labels are colored black.");
+    m_filtered_labels = t_parameters.create_algorithm_parameter<std::string>("filtered-labels", "")
+            .document_title("Filtered labels")
+            .document_description("Comma-separated list of labels to be filtered");
+    m_invert_filter_labels = t_parameters.create_algorithm_parameter<bool>("invert-filter-labels", false)
+            .document_title("Invert filter labels")
+            .document_description("If enabled, labels within the list are excluded");
 }
 
 void misaxx_ome_visualizer::find_colormap_task::work() {
-
     misaxx::ome::misa_ome_tiff images = get_module_as<module_interface>()->m_input;
     std::unordered_set<int> label_colors;
     for(size_t i = 0; i < images.size(); ++i) {
@@ -38,6 +44,7 @@ void misaxx_ome_visualizer::find_colormap_task::work() {
             }
         }
     }
+
 
     if(!label_colors.empty()) {
         colormap attachment;
@@ -56,6 +63,34 @@ void misaxx_ome_visualizer::find_colormap_task::work() {
 
             // Set into recoloring map
             attachment.data[color] = bgr_out.at<cv::Vec3b>(0);
+        }
+
+        if(m_filter_labels.query()) {
+            std::unordered_set<int> filtered_labels;
+            std::vector<std::string> cell;
+            std::string filter_string = m_filtered_labels.query();
+            boost::split(cell, filter_string, boost::is_any_of(","));
+            for(std::string x : cell) {
+                boost::trim(x);
+                filtered_labels.insert(std::stoi(x));
+            }
+
+            if(!m_invert_filter_labels.query()) {
+               std::unordered_set<int> to_remove;
+               for(const auto &kv : attachment.data) {
+                   if(filtered_labels.find(kv.first) == filtered_labels.end()) {
+                       to_remove.insert(kv.first);
+                   }
+               }
+                for(int filtered : to_remove) {
+                    attachment.data.erase(filtered);
+                }
+            }
+            else {
+                for(int filtered : filtered_labels) {
+                    attachment.data.erase(filtered);
+                }
+            }
         }
 
         // Color background black

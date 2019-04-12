@@ -17,6 +17,10 @@
 namespace misaxx_ome_visualizer {
     struct find_colormap_task : public misaxx::misa_task {
 
+        parameter<bool> m_filter_labels;
+        parameter<std::string> m_filtered_labels;
+        parameter<bool> m_invert_filter_labels;
+
         using misaxx::misa_task::misa_task;
 
         void work() override;

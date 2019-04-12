@@ -85,14 +85,14 @@ void misaxx_ome_visualizer::find_colormap_task::work() {
                 for(int filtered : to_remove) {
                     auto it = attachment.data.find(filtered);
                     if(it != attachment.data.end())
-                        attachment.data.erase(it);
+                        it->second = cv::Vec3b(0,0,0);
                 }
             }
             else {
                 for(int filtered : filtered_labels) {
                     auto it = attachment.data.find(filtered);
                     if(it != attachment.data.end())
-                        attachment.data.erase(it);
+                        it->second = cv::Vec3b(0,0,0);
                 }
             }
         }

@@ -28,7 +28,8 @@ void visualize_task::work() {
     auto output_access = m_output.access_write();
 
     if(input_access.get().type() == CV_32S) {
-        const auto attachment = get_module_as<module_interface>()->m_input.get_attachment<colormap>();
+        const auto attachment_access = get_module_as<module_interface>()->m_input.access_attachments_readonly();
+        const auto &map = attachment_access.get().at<colormap>();
 
         // Apply recoloring
         cv::Mat3b result { input_access.get().size(), cv::Vec3b(0,0,0) };
@@ -37,7 +38,7 @@ void visualize_task::work() {
             const int *row_src = input_access.get().ptr<int>(y);
             cv::Vec3b *row_result = result[y];
             for(int x = 0; x < result.cols; ++x) {
-                row_result[x] = attachment.data.at(row_src[x]);
+                row_result[x] = map.data.at(row_src[x]);
             }
         }
 

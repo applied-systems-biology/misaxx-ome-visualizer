@@ -83,12 +83,16 @@ void misaxx_ome_visualizer::find_colormap_task::work() {
                    }
                }
                 for(int filtered : to_remove) {
-                    attachment.data.erase(filtered);
+                    auto it = attachment.data.find(filtered);
+                    if(it != attachment.data.end())
+                        attachment.data.erase(it);
                 }
             }
             else {
                 for(int filtered : filtered_labels) {
-                    attachment.data.erase(filtered);
+                    auto it = attachment.data.find(filtered);
+                    if(it != attachment.data.end())
+                        attachment.data.erase(it);
                 }
             }
         }

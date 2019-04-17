@@ -1,3 +1,17 @@
+**MISA++: A modular and high-performance framework for image analysis**
+
+Ruman Gerst (1,2), Anna Medyukhina (1), Marc Thilo Figge(1,2,\*)
+
+(1) Applied Systems Biology, Leibniz Institute for Natural Product Research and Infection Biology - Hans-Knöll-Institute, Jena, Germany
+
+(2) Faculty of Biological Sciences, Friedrich-Schiller-University Jena, Germany
+
+\* To whom correspondence should be addressed.
+
+https://applied-systems-biology.github.io/misa-framework/
+
+# About
+
 The MISA++ OME Visualizer visualizes Int32 images produced by MISA++ applications.
 The visualization assigns a color to each Int32 pixel value and generates
 a RGB colored image.
@@ -41,3 +55,7 @@ additional build instructions that differ from the standard CMake building proce
 
 You need to set `OME_HOME` to a folder that contains `shared/xml` and `shared/xsl`.
 The folders are part of the OME Model installation and is required for loading OME TIFF files.
+
+# Documentation
+
+Please visit https://applied-systems-biology.github.io/misa-framework/ for full build instructions and documentation.

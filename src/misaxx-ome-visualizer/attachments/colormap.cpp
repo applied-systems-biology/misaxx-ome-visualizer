@@ -32,12 +32,12 @@ namespace {
         if(hex.length() != 7 || hex[0] != '#') {
             throw std::runtime_error("String must have format #RRGGBB!");
         }
-
+		
         unsigned long x = std::stoul(hex.substr(1), nullptr, 16);
 
-        ulong b = ((x >> 0) & 0xFF);
-        ulong g = ((x >> 8) & 0xFF);
-        ulong r = ((x >> 16) & 0xFF);
+        unsigned long b = ((x >> 0) & 0xFF);
+        unsigned long g = ((x >> 8) & 0xFF);
+        unsigned long r = ((x >> 16) & 0xFF);
 
         return cv::Vec3b(static_cast<uchar>(b), static_cast<uchar>(g), static_cast<uchar>(r));
     }

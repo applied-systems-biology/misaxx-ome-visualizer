@@ -12,6 +12,7 @@
 
 #include "misaxx-ome-visualizer/attachments/colormap.h"
 #include <iomanip>
+#include <opencv2/opencv.hpp>
 
 namespace {
     std::string bgr_to_hex(const cv::Vec3b &bgr) {

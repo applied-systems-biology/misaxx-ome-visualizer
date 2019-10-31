@@ -11,7 +11,7 @@
 # */
 
 cmake_minimum_required(VERSION 3.11)
-project(misaxx-ome-visualizer VERSION 1.0.0 DESCRIPTION "OME TIFF Visualization")
+project(misaxx-ome-visualizer VERSION 1.0.0.1 DESCRIPTION "OME TIFF Visualization")
 
 find_package(misaxx-core REQUIRED)
 find_package(misaxx-imaging-ome REQUIRED)

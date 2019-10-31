@@ -44,3 +44,14 @@ misaxx_with_default_api()
 
 # Only if it's a worker module:
 misaxx_with_default_executable()
+
+# Debian package creation
+SET(CPACK_GENERATOR "DEB")
+SET(CPACK_DEBIAN_PACKAGE_NAME "misaxx-ome-visualizer")
+SET(CPACK_DEBIAN_PACKAGE_VERSION "1.0.0.1")
+SET(CPACK_DEBIAN_PACKAGE_RELEASE "1")
+SET(CPACK_DEBIAN_PACKAGE_DESCRIPTION "MISA++ OME TIFF visualizer")
+SET(CPACK_DEBIAN_PACKAGE_MAINTAINER "Ruman Gerst")
+SET(CPACK_DEBIAN_PACKAGE_HOMEPAGE "https://applied-systems-biology.github.io/misa-framework/")
+SET(CPACK_DEBIAN_PACKAGE_SHLIBDEPS ON)
+INCLUDE(CPack)
